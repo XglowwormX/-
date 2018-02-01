@@ -1,0 +1,19 @@
+var arr = [{
+    "name": "Angus",
+    "age": "16"
+}, {
+    "name": "Angus",
+    "age": "16"
+}, {
+    "name": "Jay",
+    "age": "26"
+}, {
+    "name": "Jay",
+    "age": "26"
+}];
+var hash = {};
+arr = arr.reduce(function(item, next) {
+    hash[next.name] ? '' : hash[next.name] = true && item.push(next);
+    return item
+}, [])
+console.log(arr);
