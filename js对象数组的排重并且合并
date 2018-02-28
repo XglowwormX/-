@@ -1,0 +1,23 @@
+例如把  keyword：[ {"key": ["123"], "type":"类型1"}, {"key": ["456"], "type":"类型1"}, {"key": ["abc"], 
+        "type":"类型2"}, {"key": ["fff"], "type":"类型2"}]
+合并成  keyword：[ {"key": ["123","456"], "type":"类型1"}, {"key": ["abc","fff"], "type":"类型2"}]
+如果有一模一样的对象将去掉重复的
+
+
+
+let result = {};
+let resultArr = [];
+keyword.forEach(item => {
+  if (result[item.type]) {
+      result[item.type].key.indexOf(item.key[0]) === -1 && result[item.type].key.push(item.key[0])
+  } else {
+      result[item.type] = {};
+      result[item.type].key = [item.key[0]]
+  }
+});
+
+for (let i in result) {
+  resultArr.push({"key": result[i].key, "type": i})
+}
+
+console.log(resultArr);
