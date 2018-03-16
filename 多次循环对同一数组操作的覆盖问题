@@ -1,0 +1,31 @@
+var condition = [{
+			name: "区域一",
+			value: [{
+				addrcode: 'asasdasdasdasda',
+				time: []
+			}]
+		}
+		,{
+			name: "区域二",
+			value: [{
+				addrcode: 'asasdasdasdasda',
+				time: []
+			}]
+		}
+];
+
+		var timeArr = ['11:00-12:00', '13:00-15:00'];
+
+		let middle = [];
+		for (let i in timeArr) {
+			// let newCondition = [];
+			for (let j in condition) {
+				for (let k in condition[j].value) {
+					condition[j].value[k].time = [timeArr[i]];
+					// newCondition.push(condition[k])
+				}
+			}
+			// middle.push(JSON.parse(JSON.stringify(newCondition)));
+			middle.push(JSON.parse(JSON.stringify(condition)));                      //这两次的转换是重点，会把每次循环操作后的数据拷贝独立出来
+		}
+		console.log(middle);
