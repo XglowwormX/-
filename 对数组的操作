@@ -1,0 +1,1 @@
+1. new Array(8).file(true);    //实例化一个数组长度为8的 里边元素全是true。  fill 方法 可接受3个参（value,start,end）
