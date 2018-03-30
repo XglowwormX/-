@@ -1,1 +1,23 @@
 1. new Array(8).file(true);    //实例化一个数组长度为8的 里边元素全是true。  fill 方法 可接受3个参（value,start,end）
+
+var ary = [1,2,3,4,5,6,7,8,9,0];
+    var ary1=[1,5,7,4];
+    var ary2=[2,3,4,5,7,3,4,5];
+    var a=ary.splice(2,3,5);//删除数组中的任意项  可引申为push,unshift,pop,shift,slice最为常用
+    var b=ary.splice(2,1);
+    /*var a="test";
+    var b=[123];            供forEach测试使用*/
+    var c=ary.push(1);//在数组的末尾增加一项
+    var d=ary.unshift(3);//在数组的开头增加一项
+    var e=ary.pop();//在数组的末尾删除一项
+    var f=ary.shift();//在数组的开头删除一项
+    var g=ary.slice(2,5);//复制数组
+    var h=ary.concat(ary1,ary2).concat(1,2,2,2,2,[456654]); //如果没有参数 或者参数为（）空则为赋值数组
+    var i=ary.join('+');//将数组中的每一项用指定的分隔符拼接成一个新的字符串
+    var j=ary.reverse();//倒序排序  原有数组改变
+    var k=ary1.sort(function(a,b){return b-a;});
+    var l=ary2.indexOf(4);//返回获取项在数组中出现的索引
+    var m=ary2.lastIndexOf(4);//返回获取项在数组中出现的最后一次索引
+    var n=ary2.indexOf(9);//若获取项不存在则返回-1
+    var o=ary.forEach(function(a,b){console.log(a,b)});
+    var p=ary2.map(function(){});
