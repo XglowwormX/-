@@ -14,7 +14,7 @@ forEach():使用回调函数遍历每个成员
     利用set唯一性 简单数组去重:
         let arr = [1, 2, 3, 2, 4, 5, 4, 1];
         let set = new Set(arr);
-        let arr_unique = Array.from(set);  //打印结果//[1, 2, 3, 4, 5]
+        let arr_unique = Array.from(set);  //转为数组格式   打印结果//[1, 2, 3, 4, 5]
     利用set实现 交集差集：
         let a = new Set([1, 2, 3]);
         let b = new Set([4, 3, 2]);
