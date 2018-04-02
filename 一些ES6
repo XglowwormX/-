@@ -1,5 +1,5 @@
 Set的值是具有唯一性的
-Set方法：
+Set方法：（创建类似数组的东西）
 add(value):添加某个值，返回Set结构本身。
 delete(value):删除某个值，返回一个布尔值，表示删除成功。
 has(value):返回一个布尔值，表示参数是否为Set的成员。
@@ -22,3 +22,35 @@ forEach():使用回调函数遍历每个成员
         union;// [1, 2, 3, 4]
         let intersect = new Set([...a].filter(x => b.has(x)));
         intersect;// [2, 3]
+        
+        
+Map方法：（创建类似对象的东西）
+    var map = new Map(); //创建一个新的,空的Map  
+    map.set("one",1); //增加列表项  
+    map.set("two",2);  
+    console.log(map.size); //2，获取元素个数  
+    if(map.has("one")){ //true，判断元素存在  
+        console.log("one");  
+    }  
+    console.log(map.get("one")); //1，根据key获取元素  
+    map.forEach(function(value, key, map){ //遍历map  
+        console.log(key + ":" + value); //one:1,two:2  
+    });  
+    for(var key of map.keys()){ //返回key的迭代器  
+        console.log(key); //one,two  
+    }  
+    for(var value of map.values()){ //返回值的迭代器  
+        console.log(value); //1,2  
+    }  
+    for(var [key,value] of map.entries()){ //返回项的迭代器  
+        console.log(value); //1,2  
+    }  
+    console.log(map.delete("one")); //true,根据key删除项  
+    map.clear(); //清空map  
+    console.log(map.size); //0  
+
+    var a = [["one",1],["two",2]];  
+    var map1 = new Map(a); //new Map(pairs)，通过数组或者已存在的map创建Map  
+    map1.forEach(function(value, key, map){   
+        console.log(key + ":" + value); //one:1,two:2  
+    });  
