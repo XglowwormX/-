@@ -1,1 +1,4 @@
-
+利用set去重:
+    let arr = [1, 2, 3, 2, 4, 5, 4, 1];
+    let set = new Set(arr);
+    let arr_unique = Array.from(set);  //打印结果//[1, 2, 3, 4, 5]
