@@ -7,20 +7,151 @@
 vue中 用JQ找 未来元素    $(this.$el).find('.div')
 
 
-动态路由是什么：
+vue的路由：
     
-          动态匹配:
-              path: ‘/url/:id’
-                  $route.params: { id: id }
-              path: ‘/url/name/:username/id/:id'
-                  $route.params: { username: username, id: id }
-              高级匹配模式: 使用 path-to-regexp 作为路径匹配引擎
-                  path: ‘/url/*’
-                  path: ‘/url/:id?’
-                  path: ‘/url/(test/):id’
-                  path: ‘/url/:id(\\d+)’
-                      可在参数后括号内添加正则表达式，此路径匹配id为数字的路由
-              匹配优先级别: 按照路由的定义顺序匹配
+          const router = {
+                mode: ‘hash’ || ‘history’ || ‘abstract’
+                base: 基础路径，默认 /
+                routes: [
+                    {
+                        path: 路由
+                        name: 路由名称
+                        redirect: 重定向路由
+                        component: 路由对应组件
+                        props: 解耦传值
+                        meta: { key: value } 路由信息
+                        beforeEnter: (to, from, next) => { 路由独享守卫 }
+                    }
+                ]
+                scrollBehavior 监听滚动行为
+            }
 
-          匹配所有:
-              path: '*'
+            new Vue({
+                el: ‘’,
+                router
+            })
+
+            组件中获取:
+                this.$router
+                this.$route
+            去除URL后的/#/:
+                mode: ‘history’
+                    hash: 使用URL hash值作为路由，支持所有浏览器，不包括HTML5 history API 的浏览器。即锚点
+                    history: 依赖HTML5 history API 和服务器设置
+                    abstract: 支持所有JS运行环境，若发发现浏览器API，则强制进入这个模式
+            解耦:
+                props: true || {} || () => { return {} }
+                    true: 将route.params设置成组件属性
+                    {}: 直接作为组件属性
+                    () => {}: 返回对象直接作为组件属性
+                尽量别用！！！尽量保持props函数为无状态
+            匹配所有:
+                path: '*'
+            动态匹配:
+                path: ‘/url/:id’
+                    $route.params: { id: id }
+                path: ‘/url/name/:username/id/:id'
+                    $route.params: { username: username, id: id }
+                高级匹配模式: 使用 path-to-regexp 作为路径匹配引擎
+                    path: ‘/url/*’
+                    path: ‘/url/:id?’
+                    path: ‘/url/(test/):id’
+                    path: ‘/url/:id(\\d+)’
+                        可在参数后括号内添加正则表达式，此路径匹配id为数字的路由
+                匹配优先级别: 按照路由的定义顺序匹配
+            嵌套路由
+                {
+                    path: '/url',
+                    children: [
+                        {
+                            path: 'children'
+                            匹配路由: /url/children
+                            子路由不需要 /
+                            匹配优先级别: 按照子路由的定义顺序匹配
+                        }
+                    ]
+                }
+            router-view
+                <router-view></router-view>
+                渲染匹配到的视图组件，router-view匹配到的视图组件依旧可以嵌套router-view，根据嵌套路路径children来继续渲染
+                可通过name属性来渲染对应的component下相应的组件
+                可匹配transition跟keep-alive使用，若同时使用，内层使用keep-alive
+                    <transition name=“fade” mode=“out-in” key=“$route.path”>
+                        <router-view></router-view>
+                    </transition>
+            router-link
+                <router-link 
+                    :to=“{path: , name: , query: {} }” || to=“/url”
+                    tag=“”     渲染成向对应的标签
+                    exact      是否开始严格匹配模式
+                    replace     不记录在history，替换当前记录
+                    active-class 激活时的class属性
+                ></router-link>
+                默认渲染成a标签，可拦截点击事件，不重新加载页面跳转
+            路由重定向
+                {
+                    path: '/',
+                    redirect: '/login’ ||
+                        {name: 'login'} ||
+                        to => { 接受目标路由作为参数， return 重定向的字符串路径或者路径对象 }
+                    alias: ‘/‘
+                        别名，重定向后URL依旧显示这个
+                }
+            this.$router
+                this.$router.push({path: , name: , query: {} })
+                this.$router.replace({path: , name: , query: {} })
+                this.$router.go()
+                    => 参考 window.history.pushState() window.history.replaceState() window.history.go()
+                this.$router可查看路由队列
+            this.$route
+                {
+                    name: 当前路由的名称
+                    path: 字符串，对应当前路由的路径，总解析为绝对路径 ‘url/user’
+                    params: 一个key/value对象，包含动态和全匹配片段，若无路由参数，则是为空对象
+                    query: 一个key/value对象，表示URL查询参数，如url?user=username，解析为{ user: username }
+                    Hash: 当前路由的hash值，无时为字符串
+                }
+                this.$route.go(n)  类似于 window.history.get()
+                this.$route.back()
+                this.$forward()
+            编程式导航 => 使用函数 this.$router.push()
+            声明式导航 => <router-link to=“…”>
+            按需加载
+                component: resolve => require(['登录路径.vue'],resolve)
+            路由元信息 meta
+                可再导航守卫中 to.matched 中检查元字段
+                meta: { username: ’sb’ }
+                to.matched.some( record => record.meta.username ) 返回 true or false
+            滚动行为
+                scrollBehavior(to, from, savedPosition){
+                    回滚到浏览的位置，只有当浏览器的前进与后退被触发时调动
+                    savedPosition 是否按下前进后退的按钮
+                    可与路由元信息配合
+                    if(savePosition){
+                        return savePosition
+                    } else {
+                        return {x: 0, y: 0}
+                    }
+                }
+
+            全局前置守卫
+                router.beforeEach( (to, from, next) => {
+                    监听路由变化 必须next() 可用于拦截登录等
+                    next() || next({ path: , query: ... })
+                })
+
+            全局解析守卫 2.5新增
+                router.beforeResolve((to, from, next) => {
+                    当所有组件内的守卫跟路由组件被解析后在调用
+                })
+
+            全局后置钩子
+                router.beforeEach((to, from) => {
+                    不接受next改变导航本身
+                })
+
+            获取数据
+                导航完成后
+                    在 created 或者 beforeCreated 中调用
+                导航完成前
+                    在上一个页面的 beforeRouteEnter(to, from, next){} 中调用，需调用next()，当数据获取失败则停留当前页面
