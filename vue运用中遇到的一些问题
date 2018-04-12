@@ -5,3 +5,22 @@
 
 
 vue中 用JQ找 未来元素    $(this.$el).find('.div')
+
+
+动态路由是什么：
+    
+          动态匹配:
+              path: ‘/url/:id’
+                  $route.params: { id: id }
+              path: ‘/url/name/:username/id/:id'
+                  $route.params: { username: username, id: id }
+              高级匹配模式: 使用 path-to-regexp 作为路径匹配引擎
+                  path: ‘/url/*’
+                  path: ‘/url/:id?’
+                  path: ‘/url/(test/):id’
+                  path: ‘/url/:id(\\d+)’
+                      可在参数后括号内添加正则表达式，此路径匹配id为数字的路由
+              匹配优先级别: 按照路由的定义顺序匹配
+
+          匹配所有:
+              path: '*'
