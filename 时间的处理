@@ -1,0 +1,15 @@
+1. 中国标准时间  转成 年-月-日 时：分：秒
+    function fun(需要转换的标准时间) {
+      var res = new Date(需要转换的标准时间);
+      var resDate = res.getFullYear() + "-" ((res.getMonth() + 1) >= 10 ? (res.getMonth() + 1) : "0" + (res.getMonth() + 1)) + "-"
+                  + (res.getDate() < 10 ? "0" + res.getDate() : res.getDate())
+                  + " "
+                  + (res.getHours() < 10 ? "0" + res.getHours() : res.getHours()) + ":"
+                  + (res.getMinutes() < 10 ? "0" + res.getMinutes() : res.getMinutes()) + ":"
+                  + (res.getSeconds() < 10 ? "0" + res.getSeconds() : res.getSeconds());
+      return resDate;
+    }
+    
+    
+    
+2. new Date(new Date().getTime() - 1 * 60 * 60 * 1000);                       //当前时间减一个小时
