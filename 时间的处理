@@ -13,3 +13,31 @@
     
     
 2. new Date(new Date().getTime() - 1 * 60 * 60 * 1000);                       //当前时间减一个小时
+
+
+3. 将一段时间里的每一天提取出来放进数组（'2017-09-10', '2017-10-12'）
+    function getDayAll (begin, end) {
+        var dateAllArr = new Array();
+        var ab = begin.split('-');
+        var ae = end.split('-');
+        var db = new Date();
+        db.setUTCFullYear(ab[0], ab[1]-1, ab[2]);
+        var de = new Date();
+        de.setUTCFullYear(ae[0], ae[1]-1, ae[2]-1);
+        var unixDb = db.getTime();
+        var unixDe = de.getTime();
+        for (var k = unixDb; k <= unixDe;) {
+            dateAllArr.push((new Date(parseInt(k))).format().toString());
+            k += 24*60*60*1000;
+        }
+        return dateAllArr;
+    }
+    
+    Date.prototype.format = function () {
+        var s = '';
+        s += this.getFullYear() + '-';
+        s += parseInt((this.getMonth()+1)) < 0 ? '0' + (this.getMonth() + 1) + '-' : (this.getMonth()+1) + '-';
+        s += parseInt(this.getDate()) < 10 ? '0' + this.getDate() : this.getDate();
+        return (s);
+    }
+    
