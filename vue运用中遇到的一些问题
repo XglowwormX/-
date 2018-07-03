@@ -155,3 +155,10 @@ vue的路由：
                     在 created 或者 beforeCreated 中调用
                 导航完成前
                     在上一个页面的 beforeRouteEnter(to, from, next){} 中调用，需调用next()，当数据获取失败则停留当前页面
+                    
+                    
+       
+解决this.$router.push无法在新窗口打开:
+
+ let routeData = this.$router.resolve({ path: '/reportpreview', query: {  id: id } });
+ window.open(routeData.href, '_blank');
