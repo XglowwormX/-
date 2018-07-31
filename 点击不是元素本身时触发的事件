@@ -1,0 +1,11 @@
+$(function(){
+    $(document).bind("click", function (e) {
+            if($(e.target).closest("#txt").length>0){
+            //点击的是元素本身
+            $("#tip").show();
+        }else{
+        //点击的是元素本身之外的区域
+            $("#tip").hide();
+        }
+    });    
+});
