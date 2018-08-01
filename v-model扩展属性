@@ -1,0 +1,5 @@
+    v-model.number  //只允许数字
+    v-model.trim  //去前后空格
+    v-model.lazy   //延迟加载
+    v-model.sync  
+
