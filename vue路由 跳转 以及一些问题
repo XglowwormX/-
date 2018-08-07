@@ -1,13 +1,14 @@
-用了IScroll滚动条插件的DIV里面不能嵌套eharts图表，否则会导致一些功能失效！！！
+****用了IScroll滚动条插件的DIV里面不能嵌套eharts图表，否则会导致一些功能失效！！！
 
 
-需要注意 如果保存的全局变量找不到，可能是因为 当前函数 与 变量不在同一组件使用！！！！！
+****需要注意 如果保存的全局变量找不到，可能是因为 当前函数 与 变量不在同一组件使用！！！！！
 
 
-vue中 用JQ找 未来元素    $(this.$el).find('.div')
+****vue中 用JQ找 未来元素    $(this.$el).find('.div')
 
+****vue中重复引用相同的子组件 用:key="" 来保证唯一，这样可以删除其中一个子组件时，不影响数据
 
-vue的路由：
+****vue的路由：
     
           const router = {
                 mode: ‘hash’ || ‘history’ || ‘abstract’
@@ -158,7 +159,7 @@ vue的路由：
                     
                     
        
-解决this.$router.push无法在新窗口打开:
+****解决this.$router.push无法在新窗口打开:
 
  let routeData = this.$router.resolve({ path: '/reportpreview', query: {  id: id } });
  window.open(routeData.href, '_blank');
