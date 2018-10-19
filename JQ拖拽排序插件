@@ -1,0 +1,28 @@
+使用方法
+引用jQuery和drag-arrange.js即可
+
+1
+2
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="drag-arrange.js"></script>
+html
+
+<div id="elements-container">
+  <div class="draggable-element d-1">Drag 1</div>
+  <div class="draggable-element d-2">Drag 2</div>
+  <div class="draggable-element d-3">Drag 3</div>
+  <div class="draggable-element d-4">Drag 4</div>
+</div>
+js
+
+$('.draggable-element').arrangeable();
+可选参数
+dragSelector
+
+如果获得通过，可以只从这个选择器拖动对象。默认 dragSelector 是同一已调用函数的 DOM 元素。
+
+dragEndEvent
+
+(默认值:"drag.end.arrangeable")
+
+当拖动两端，可拖动元素容器触发指定的事件。（事件对象本身）的第一个 arguemnt 是被拽的 jQuery 对象。
