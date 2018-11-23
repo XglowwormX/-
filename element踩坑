@@ -1,0 +1,1 @@
+1. 表格 带checkbox的 多选、翻页后其他页选中的不消失  可以使用 :reserve-selection="true"。（自己百度这个东西的用法）
