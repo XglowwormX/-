@@ -41,3 +41,36 @@
         return (s);
     }
     
+    
+ 4. //将时间降序排序 同一天的放到一个数组中
+	let resData = [
+		{name: '时间1', time: '2019-01-01 00:01:18'},
+		{name: '时间2', time: '2019-01-01 12:01:18'},
+		{name: '时间4', time: '2019-02-08 10:01:18'},
+		{name: '时间5', time: '2019-02-08 20:20:48'},
+		{name: '时间3', time: '2019-01-03 20:20:48'}
+	];
+	resData.forEach((item) => {
+		item.sortTime = new Date(item.time).getTime();
+		item.time0 = item.time.split(' ')[0];
+		item.time1 = item.time.split(' ')[1];
+	});
+	resData.sort((a, b) => {
+		return b.sortTime - a.sortTime;
+	});
+	
+	let obj = {};
+	resData.forEach((item) => {
+		if (obj[item.time0]) {
+			obj[item.time0].push(item);
+		} else {
+			obj[item.time0] = new Array();
+			obj[item.time0].push(item);
+		}
+	});
+	
+	let arr = new Array();
+	for (let key in obj) {
+		arr.push(obj[key]);
+	}
+	// console.log(arr);
