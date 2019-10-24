@@ -8,8 +8,8 @@
 
 ****vue中重复引用相同的子组件 用:key="" 来保证唯一，这样可以删除其中一个子组件时，不影响数据
 
-****this.$on('fun', function(msg) {});       this.$emit('fun', '1');  this.$on在this.$emit之前配合使用可以监听this.$emit调用的函数，
-                                                回调函数的返回值就是this.$emit里传的值。
+****this.$on('fun', function(msg) {});   this.$emit('fun', '1');    this.$off('fun', function() {})。  this.$on在this.$emit之前配合使用可以监听this.$emit调用的函数，
+                                                回调函数的返回值就是this.$emit里传的值，this.$off是停止监听。
 
 ****在我们使用vue进行开发的过程中，可能会遇到一种情况：当生成vue实例后，当再次给数据赋值时，有时候并不会自动更新到视图上去；
 当我们去看vue文档的时候，会发现有这么一句话：如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。这时我们可以利用
