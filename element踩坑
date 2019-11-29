@@ -1,1 +1,33 @@
 1. 表格 带checkbox的 多选、翻页后其他页选中的不消失  可以使用 :reserve-selection="true"。（自己百度这个东西的用法）
+2. 表格合并行方法。表格数据为tableData: [];
+      先处理数据：
+      let pro = 0;
+      tableData.forEach((item, index) => {
+          if (index === 0) {
+              item.num = 1;
+              pro = index;
+          } else {
+              if (item['合并依据字段名'] === tableData[index - 1].['合并依据字段名']) {
+                  tableData[pro].num++;
+              } else {
+                  item.num = 1;
+                  pro = index;
+              }
+          }
+      });
+      然后element里的合并行的方法：
+      spanMethod({row, column, rowIndex, columnIndex}) {
+          if (columnIndex === 0) {
+              if (row.num) {
+                  return {
+                      rowspan: row.num,
+                      colspan: 1
+                  }
+              } else {
+                  return {
+                      rowspan: 0,
+                      colspan: 0
+                  }
+              }
+          }
+      }
