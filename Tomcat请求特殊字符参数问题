@@ -1,0 +1,39 @@
+二、问题分析
+在使用tomcat8中，我们可以看到错误java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986,也就是说我们的请求中包含无效的字符，由RFC规范可以得知，url中只允许包含英文字母(a-zA-Z)、数字(0-9)、-_.~四个特殊字符由于我们请求中包含{}字符串，所以tomcat报错。
+
+三、问题解决
+1、不使用特殊字符：使用其他的常用字符或数字，但是对于一些特定的参数，是需要进行传入特殊字符的——（不建议使用）
+2、对请求URL编码解码：URLEncoder.encode(str,"UTF-8");、URLDecoder.decode(str,"UTF-8");，这种方法对于单一的请求还是可以的，或者在项目结构开始时，统一使用这种方式（可以使用）
+3、配置Tomcat对特殊字符的支持：统一配置tomcat配置文件，在所有Tomcat版本均适用。（推荐使用）
+
+我们在conf/catalina.properties中最后添加2行,（亲测有效）
+
+tomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
+org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
+Tomcat请求特殊字符参数问题：Invalid character found in the request target. The valid characters are defined in_第4张图片
+
+虽然Tomcat做了限制的同时，也提供了相关配置。给出的解决方案第一行requestTargetAllow，指定了允许的特殊字符，在等号后面配|{}就行了。
+
+如果你只是需要使用这三个字符的话，使用上面的配置就可以使用了，重启tomcat，启动项目，就能正常使用了。
+
+访问成功：
+在这里插入图片描述
+但是由于项目经常会传递数组类型的数据，或者其他特殊字符串类型，但是requestTargetAllow只能配置|{}允许这三个字符,如果想要使用除了|{}这三个字符以外其他的（< > [ \ ] ^ ` { | } .）的字符串，我们需要以下配置：
+
+在conf/server.xml中的节点中，添加2个属性:
+
+relaxedPathChars="|{}[],"
+relaxedQueryChars="|{}[],"
+完整版：
+
+ <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" 
+	       URIEncoding="UTF-8"
+               useBodyEncodingForURI="true"
+		relaxedPathChars="|{}[],"
+	 	relaxedQueryChars="|{}[],"
+	/>
+添加了这2个属性，重启tomcat后，访问项目时，我们就可以使用任意特殊字符，方便快捷，而且不需要大规模的进行改动。
+
+tomcat 文档地址：https://tomcat.apache.org/tomcat-8.5-doc/config/systemprops.html
