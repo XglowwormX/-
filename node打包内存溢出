@@ -1,0 +1,1 @@
+在nodejs 根目录下把node.exe 重命名一下（比如node2.exe，防止和node.cmd冲突），建一个node.cmd文件 里面写上 node2.exe --max-old-space-size=4096 %* 大概意思就是本来调用node.exe的时候被node.cmd劫持，强制分配最大内存为4096MB ，然后再调用node.exe
