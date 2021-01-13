@@ -173,3 +173,9 @@ this.$set('info.content', 'what is this?') 方法去手动更新data中的变量
 
  let routeData = this.$router.resolve({ path: '/reportpreview', query: {  id: id } });
  window.open(routeData.href, '_blank');
+ 
+ 
+ 
+ ****解决键盘回车事件导致页面刷新的问题，路由多了一个问号:
+        当一个 form 元素中只有一个输入框时，在该输入框中按下回车应提交该表单。如果希望阻止这一默认行为，可以在 标签上添加 @submit.native.prevent。
+ 
